@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a onclick="go('/home')">首页</a>
+<a onclick="go('/about')">关于</a>
+<div id="html"></div>
+<script>
+    window.addEventListener('popstate', () => {
+        document.querySelector('#html').innerHTML = location.pathname;
+    });
+
+    function go(path) {
+        history.pushState(null, null, path);
+        document.querySelector('#html').innerHTML = path;
+    }
+</script>
+</body>
+</html>

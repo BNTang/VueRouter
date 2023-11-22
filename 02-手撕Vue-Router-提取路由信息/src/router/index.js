@@ -1,8 +1,7 @@
 import Vue from 'vue'
-// import VueRouter from 'vue-router'
-import VueRouter from './Nue-Router'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
+import VueRouter from './NueTwo-Router'
+import Home from '../views/Home'
+import About from '../views/About'
 
 Vue.use(VueRouter)
 
@@ -20,7 +19,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history', // #/home /home
+  mode: 'hash', // #/home /home
   base: process.env.BASE_URL,
   routes
 })
