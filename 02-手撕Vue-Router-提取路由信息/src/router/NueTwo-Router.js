@@ -25,6 +25,7 @@ class NueRouter {
             }
             // 2.加载完成之后和hash发生变化之后都需要保存当前的地址
             window.addEventListener('load', () => {
+                console.log('load');
                 this.routerInfo.currentPath = location.hash.slice(1);
             });
             window.addEventListener('hashchange', () => {
@@ -38,11 +39,12 @@ class NueRouter {
             }
             // 2.加载完成之后和history发生变化之后都需要保存当前的地址
             window.addEventListener('load', () => {
+                console.log('load');
                 this.routerInfo.currentPath = location.pathname;
             });
             window.addEventListener('popstate', () => {
                 this.routerInfo.currentPath = location.pathname;
-                console.log(this.routerInfo);
+                // console.log(this.routerInfo);
             });
         }
     }
@@ -61,11 +63,37 @@ NueRouter.install = (Vue, options) => {
             if (this.$options && this.$options.router) {
                 this.$router = this.$options.router;
                 this.$route = this.$router.routerInfo;
+                Vue.util.defineReactive(this, 'xxx', this.$router);
             } else {
                 this.$router = this.$parent.$router;
                 this.$route = this.$router.routerInfo;
             }
         }
     })
+    Vue.component('router-link', {
+        props: {
+            to: {
+                type: String,
+            }
+        },
+        render() {
+            let path = this.to;
+            if (this._self.$router.mode === 'hash') {
+                path = '#' + path;
+            }
+            return <a href={path}>{this.$slots.default}</a>
+        }
+    });
+
+    Vue.component('router-view', {
+        render(h) {
+            console.log('render');
+            const routesMap = this._self.$router.routesMap;
+            const currentPath = this._self.$route.currentPath;
+            console.log(currentPath);
+            const currentComponent = routesMap[currentPath];
+            return h(currentComponent);
+        }
+    });
 }
 export default NueRouter;

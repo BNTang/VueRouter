@@ -11,8 +11,6 @@ export default {
     return {}
   },
   mounted() {
-    console.log("Home", this.$router);
-    console.log("Home", this.$route);
   }
 }
 </script>

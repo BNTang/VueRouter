@@ -10,8 +10,6 @@ export default {
     return {}
   },
   mounted() {
-    console.log("About", this.$router);
-    console.log("About", this.$route);
   }
 }
 </script>
